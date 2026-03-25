@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plantilla portadas / stickers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --page-width: 21cm;
+    --page-height: 29.7cm;
+    --img-width: 3.4cm;
+    --img-height: 4.5cm;
+    --img-padding: 0.25cm;
+    --margin-left: 1.2cm;
+    --margin-right: 1.2cm;
+    --margin-top: 2.3cm;
+    --margin-bottom: 1.2cm;
+
+    --bg-1: #f8f2ec;
+    --bg-2: #f3e8de;
+    --panel: rgba(255,255,255,.72);
+    --panel-border: rgba(214, 188, 171, .75);
+    --text: #4f3c34;
+    --muted: #8d776c;
+    --line: #e8d7cc;
+    --accent: #d47a52;
+    --accent-dark: #bf6841;
+    --danger-bg: #fce9e2;
+    --danger-border: #f0c7b6;
+    --shadow: 0 18px 45px rgba(133, 93, 73, .14);
+    --shadow-soft: 0 10px 24px rgba(133, 93, 73, .08);
+    --radius-xl: 26px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at top left, #fff7f1 0%, transparent 34%),
+      linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  }
+
+  .app{
+    max-width:1550px;
+    margin:0 auto;
+    padding:24px;
+  }
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    margin-bottom:18px;
+    padding:18px 20px;
+    background:rgba(255,255,255,.62);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(232,215,204,.85);
+    border-radius:24px;
+    box-shadow:var(--shadow-soft);
+  }
+
+  .title-wrap{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  .logo-badge{
+    width:58px;
+    height:58px;
+    border-radius:18px;
+    background:linear-gradient(180deg, #ffe4d5, #f4c7ae);
+    border:1px solid #e8b89d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#86482e;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+  }
+
+  .title-wrap h1{
+    margin:0;
+    font-size:24px;
+    line-height:1.1;
+  }
+
+  .title-wrap p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  .pill{
+    padding:10px 14px;
+    border-radius:999px;
+    background:#fff;
+    border:1px solid var(--line);
+    font-size:13px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns:380px 1fr;
+    gap:22px;
+    align-items:start;
+  }
+
+  .panel{
+    background:var(--panel);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--panel-border);
+    border-radius:var(--radius-xl);
+    padding:20px;
+    box-shadow:var(--shadow);
+    position:sticky;
+    top:16px;
+  }
+
+  .section{
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid rgba(226,206,194,.9);
+  }
+
+  .section:first-of-type{
+    margin-top:0;
+    padding-top:0;
+    border-top:none;
+  }
+
+  .section-title{
+    margin:0 0 12px;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  .fields-2,
+  .fields-3{
+    display:grid;
+    gap:10px;
+  }
+
+  .fields-2{ grid-template-columns:1fr 1fr; }
+  .fields-3{ grid-template-columns:1fr 1fr 1fr; }
+
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+
+  .field label{
+    font-size:12px;
+    color:var(--muted);
+    font-weight:500;
+  }
+
+  input, select{
+    width:100%;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.92);
+    border-radius:14px;
+    padding:11px 12px;
+    font-size:14px;
+    color:var(--text);
+    outline:none;
+    font-family:inherit;
+    transition:.18s ease;
+  }
+
+  input:focus, select:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 4px rgba(212,122,82,.12);
+  }
+
+  input:disabled{
+    background:#f6f1ed;
+    color:#9a8579;
+    cursor:not-allowed;
+  }
+
+  .hint{
+    margin-top:10px;
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+
+  .buttons{
+    display:grid;
+    gap:10px;
+    margin-top:12px;
+  }
+
+  .buttons-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  button{
+    border:none;
+    border-radius:14px;
+    padding:12px 14px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.18s ease;
+    font-family:inherit;
+  }
+
+  button:hover{
+    transform:translateY(-1px);
+  }
+
+  .btn-primary{
+    background:linear-gradient(180deg, var(--accent), var(--accent-dark));
+    color:#fff;
+    box-shadow:0 10px 22px rgba(212,122,82,.22);
+  }
+
+  .btn-soft{
+    background:#fff;
+    color:var(--text);
+    border:1px solid var(--line);
+  }
+
+  .btn-soft:hover{
+    background:#fff8f4;
+  }
+
+  .btn-danger{
+    background:var(--danger-bg);
+    color:#9b4d31;
+    border:1px solid var(--danger-border);
+  }
+
+  .meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:16px;
+  }
+
+  .meta-card{
+    background:rgba(255,255,255,.85);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:12px;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .meta-card strong{
+    display:block;
+    font-size:16px;
+    color:var(--text);
+    margin-bottom:4px;
+  }
+
+  .workspace{
+    min-width:0;
+  }
+
+  .sheet-wrap{
+    overflow:auto;
+    min-height:84vh;
+    border-radius:28px;
+    padding:14px;
+    background:
+      linear-gradient(45deg,#f8f1eb 25%, transparent 25%),
+      linear-gradient(-45deg,#f8f1eb 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #f8f1eb 75%),
+      linear-gradient(-45deg, transparent 75%, #f8f1eb 75%);
+    background-size:24px 24px;
+    background-position:0 0, 0 12px, 12px -12px, -12px 0;
+    border:1px solid rgba(232,215,204,.9);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+  }
+
+  .page{
+    display:inline-block;
+    position:relative;
+    width:var(--page-width);
+    height:var(--page-height);
+    margin:1em auto;
+    vertical-align:top;
+    background:white;
+    box-shadow:0 0 0.65cm rgba(0,0,0,.23);
+    border-radius:6px;
+    page-break-after:always;
+    animation:pageFade .28s ease;
+  }
+
+  @keyframes pageFade{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .page-inner{
+    position:absolute;
+    inset:0;
+    padding-top:var(--margin-top);
+    padding-right:var(--margin-right);
+    padding-bottom:var(--margin-bottom);
+    padding-left:var(--margin-left);
+  }
+
+  .grid{
+    width:100%;
+    height:100%;
+    display:grid;
+    justify-content:start;
+    align-content:start;
+    gap:calc(var(--img-padding) * 2);
+  }
+
+  .slot{
+    width:var(--img-width);
+    height:var(--img-height);
+    border:1px solid #cbb9ae;
+    border-radius:8px;
+    background:#fff;
+    overflow:hidden;
+    cursor:pointer;
+    position:relative;
+    transition:.18s ease;
+    transform-origin:center;
+  }
+
+  .slot:hover{
+    transform:translateY(-1px);
+    box-shadow:0 10px 18px rgba(212,122,82,.15);
+    border-color:#d8a088;
+  }
+
+  .slot img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .28s ease;
+    transform-origin:center;
+  }
+
+  .slot:not(.empty):hover img{
+    transform:scale(1.04);
+  }
+
+  .slot.empty::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(45deg, rgba(212,122,82,.05) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(212,122,82,.05) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(212,122,82,.05) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(212,122,82,.05) 75%);
+    background-size:14px 14px;
+    background-position:0 0, 0 7px, 7px -7px, -7px 0;
+  }
+
+  .slot.empty::after{
+    content:"Clic para cargar";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px;
+    text-align:center;
+    color:#a08679;
+    font-size:12px;
+    z-index:1;
+  }
+
+  .slot img[src=""]{
+    display:none;
+  }
+
+  .toolbar-note{
+    margin-top:14px;
+    padding:12px 14px;
+    border-radius:16px;
+    background:rgba(255,255,255,.8);
+    border:1px solid var(--line);
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .preview-note{
+    margin-bottom:12px;
+    padding:10px 12px;
+    border-radius:14px;
+    background:rgba(255,255,255,.84);
+    border:1px solid var(--line);
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .noprint{ display:block; }
+
+  @media print{
+    body{ background:white; }
+
+    .noprint{ display:none !important; }
+
+    .app{
+      max-width:none;
+      padding:0;
+      margin:0;
+    }
+
+    .layout{ display:block; }
+
+    .sheet-wrap{
+      padding:0;
+      background:none;
+      min-height:auto;
+      overflow:visible;
+      border:none;
+      box-shadow:none;
+    }
+
+    .page{
+      margin:0;
+      box-shadow:none;
+      border-radius:0;
+      break-after:page;
+      animation:none;
+    }
+
+    .slot.empty{
+      visibility:hidden !important;
+      border:none !important;
+      outline:none !important;
+      background:transparent !important;
+    }
+
+    .slot.empty::before,
+    .slot.empty::after{
+      display:none !important;
+      content:none !important;
+    }
+
+    .slot{
+      border:none !important;
+      box-shadow:none !important;
+      transform:none !important;
+    }
+
+    .slot img{
+      transform:none !important;
+    }
+
+    @page{
+      margin:0;
+      size:auto;
+    }
+  }
+
+  @media (max-width:1180px){
+    .layout{ grid-template-columns:1fr; }
+    .panel{ position:static; }
+  }
+
+  @media (max-width:700px){
+    .topbar{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+
+    .fields-2,
+    .fields-3,
+    .buttons-2,
+    .meta{
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar noprint">
+      <div class="title-wrap">
+        <div class="logo-badge">P</div>
+        <div>
+          <h1>Plantilla portadas / stickers</h1>
+          <p>Subí imágenes, elegí hoja normal o CAMEO y mirá cuántos entran</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="panel noprint">
+        <div class="section">
+          <p class="section-title">Hoja</p>
+          <div class="fields-3">
+            <div class="field">
+              <label for="pageSize">Tamaño</label>
+              <select id="pageSize">
+                <option value="A4" selected>A4</option>
+                <option value="CAMEO">CAMEO</option>
+                <option value="A5">A5</option>
+                <option value="CARTA">Carta</option>
+                <option value="A3">A3</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pageWidth">Ancho</label>
+              <input type="number" id="pageWidth" step="0.1" value="21">
+            </div>
+            <div class="field">
+              <label for="pageHeight">Alto</label>
+              <input type="number" id="pageHeight" step="0.1" value="29.7">
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="section-title">Sticker / Imagen</p>
+          <div class="fields-3">
+            <div class="field">
+              <label for="imgWidth">Ancho</label>
+              <input type="number" id="imgWidth" step="0.1" value="4">
+            </div>
+            <div class="field">
+              <label for="imgHeight">Alto</label>
+              <input type="number" id="imgHeight" step="0.1" value="4">
+            </div>
+            <div class="field">
+              <label for="imgPadding">Separación</label>
+              <input type="number" id="imgPadding" step="0.1" value="0.3">
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="section-title">Márgenes</p>
+          <div class="fields-2">
+            <div class="field">
+              <label for="marginTop">Margen superior</label>
+              <input type="number" id="marginTop" step="0.1" value="2.3">
+            </div>
+            <div class="field">
+              <label for="marginLeft">Margen izquierdo</label>
+              <input type="number" id="marginLeft" step="0.1" value="1.2">
+            </div>
+            <div class="field">
+              <label for="marginRight">Margen derecho</label>
+              <input type="number" id="marginRight" step="0.1" value="1.2">
+            </div>
+            <div class="field">
+              <label for="marginBottom">Margen inferior</label>
+              <input type="number" id="marginBottom" step="0.1" value="1.2">
+            </div>
+          </div>
+          <div class="hint">
+            En CAMEO, si querés, podés poner márgenes en 0 para usar directo el área útil 18,21 × 26,40.
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="section-title">Cantidad</p>
+          <div class="fields-2">
+            <div class="field">
+              <label for="autoFill">Modo</label>
+              <select id="autoFill">
+                <option value="auto" selected>1 hoja automática</option>
+                <option value="manual">Varias páginas</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="copies">Páginas</label>
+              <input type="number" id="copies" step="1" min="1" value="1">
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button class="btn-primary" id="applyBtn">Aplicar medidas</button>
+            <div class="buttons-2">
+              <button class="btn-soft" id="printBtn">Guardar PDF</button>
+              <button class="btn-soft" id="fillFromFirstBtn">Duplicar imagen 1</button>
+            </div>
+            <button class="btn-danger" id="clearBtn">Limpiar todo</button>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-card">
+            <strong id="slotsPerPageText">0 por hoja</strong>
+            Cuántos entran en una hoja.
+          </div>
+          <div class="meta-card">
+            <strong id="pagesText">0 páginas</strong>
+            Total según la cantidad elegida.
+          </div>
+        </div>
+
+        <div class="toolbar-note">
+          La derecha muestra una vista previa de 1 hoja. Al guardar PDF, se generan todas las páginas calculadas.
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <div class="preview-note noprint" id="previewNote">
+          Vista previa: se muestra solo la primera hoja para que no tengas que bajar por todas. El cálculo igual contempla todas las páginas.
+        </div>
+        <div class="sheet-wrap" id="sheetWrap"></div>
+      </main>
+    </div>
+  </div>
+
+  <input type="file" id="globalFileInput" accept="image/*" hidden>
+
+<script>
+  const pageSizeMap = {
+    A3: { width: 29.7, height: 42.0 },
+    A4: { width: 21.0, height: 29.7 },
+    CARTA: { width: 21.59, height: 27.94 },
+    A5: { width: 14.8, height: 21.0 },
+    CAMEO: { width: 18.21, height: 26.40 }
+  };
+
+  const state = {
+    images: [],
+    currentIndex: null
+  };
+
+  const $ = (id) => document.getElementById(id);
+
+  const els = {
+    pageSize: $('pageSize'),
+    pageWidth: $('pageWidth'),
+    pageHeight: $('pageHeight'),
+    imgWidth: $('imgWidth'),
+    imgHeight: $('imgHeight'),
+    imgPadding: $('imgPadding'),
+    marginTop: $('marginTop'),
+    marginLeft: $('marginLeft'),
+    marginRight: $('marginRight'),
+    marginBottom: $('marginBottom'),
+    copies: $('copies'),
+    autoFill: $('autoFill'),
+    applyBtn: $('applyBtn'),
+    printBtn: $('printBtn'),
+    clearBtn: $('clearBtn'),
+    fillFromFirstBtn: $('fillFromFirstBtn'),
+    sheetWrap: $('sheetWrap'),
+    globalFileInput: $('globalFileInput'),
+    slotsPerPageText: $('slotsPerPageText'),
+    pagesText: $('pagesText')
+  };
+
+  function setPagePreset(size){
+    const preset = pageSizeMap[size];
+    if(!preset) return;
+
+    els.pageWidth.value = preset.width;
+    els.pageHeight.value = preset.height;
+
+    const locked = size === 'CAMEO';
+    els.pageWidth.disabled = locked;
+    els.pageHeight.disabled = locked;
+  }
+
+  function togglePagesInput(){
+    els.copies.disabled = els.autoFill.value === 'auto';
+  }
+
+  function getConfig(){
+    return {
+      pageWidth: parseFloat(els.pageWidth.value) || 21,
+      pageHeight: parseFloat(els.pageHeight.value) || 29.7,
+      imgWidth: parseFloat(els.imgWidth.value) || 4,
+      imgHeight: parseFloat(els.imgHeight.value) || 4,
+      imgPadding: parseFloat(els.imgPadding.value) || 0.3,
+      marginTop: parseFloat(els.marginTop.value) || 0,
+      marginLeft: parseFloat(els.marginLeft.value) || 0,
+      marginRight: parseFloat(els.marginRight.value) || 0,
+      marginBottom: parseFloat(els.marginBottom.value) || 0,
+      copies: Math.max(1, parseInt(els.copies.value, 10) || 1),
+      autoFill: els.autoFill.value
+    };
+  }
+
+  function calculateLayout(cfg){
+    const usableWidth = cfg.pageWidth - cfg.marginLeft - cfg.marginRight;
+    const usableHeight = cfg.pageHeight - cfg.marginTop - cfg.marginBottom;
+
+    const stepX = cfg.imgWidth + cfg.imgPadding;
+    const stepY = cfg.imgHeight + cfg.imgPadding;
+
+    const cols = Math.max(1, Math.floor((usableWidth + cfg.imgPadding) / stepX));
+    const rows = Math.max(1, Math.floor((usableHeight + cfg.imgPadding) / stepY));
+    const slotsPerPage = rows * cols;
+
+    return { cols, rows, slotsPerPage };
+  }
+
+  function ensureStateLength(total){
+    while (state.images.length < total) state.images.push('');
+    if (state.images.length > total) state.images.length = total;
+  }
+
+  function buildPages(renderAll = false){
+    const cfg = getConfig();
+
+    document.documentElement.style.setProperty('--page-width', cfg.pageWidth + 'cm');
+    document.documentElement.style.setProperty('--page-height', cfg.pageHeight + 'cm');
+    document.documentElement.style.setProperty('--img-width', cfg.imgWidth + 'cm');
+    document.documentElement.style.setProperty('--img-height', cfg.imgHeight + 'cm');
+    document.documentElement.style.setProperty('--img-padding', (cfg.imgPadding / 2) + 'cm');
+    document.documentElement.style.setProperty('--margin-top', cfg.marginTop + 'cm');
+    document.documentElement.style.setProperty('--margin-left', cfg.marginLeft + 'cm');
+    document.documentElement.style.setProperty('--margin-right', cfg.marginRight + 'cm');
+    document.documentElement.style.setProperty('--margin-bottom', cfg.marginBottom + 'cm');
+
+    const layout = calculateLayout(cfg);
+    const totalPages = cfg.autoFill === 'auto' ? 1 : cfg.copies;
+    const totalSlots = layout.slotsPerPage * totalPages;
+
+    ensureStateLength(totalSlots);
+
+    els.slotsPerPageText.textContent = `${layout.slotsPerPage} por hoja`;
+    els.pagesText.textContent = `${totalPages} página${totalPages > 1 ? 's' : ''} · ${totalSlots} total`;
+
+    els.sheetWrap.innerHTML = '';
+
+    const pagesToRender = renderAll ? totalPages : 1;
+
+    for(let pageIndex = 0; pageIndex < pagesToRender; pageIndex++){
+      const page = document.createElement('div');
+      page.className = 'page';
+
+      const inner = document.createElement('div');
+      inner.className = 'page-inner';
+
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      grid.style.gridTemplateColumns = `repeat(${layout.cols}, var(--img-width))`;
+
+      const pageStart = pageIndex * layout.slotsPerPage;
+      const pageEnd = Math.min(pageStart + layout.slotsPerPage, totalSlots);
+
+      for(let i = pageStart; i < pageEnd; i++){
+        const slot = document.createElement('div');
+        slot.className = 'slot' + (state.images[i] ? '' : ' empty');
+        slot.dataset.index = i;
+
+        const img = document.createElement('img');
+        img.id = `image-${i}`;
+        img.src = state.images[i] || '';
+        img.alt = `Imagen ${i + 1}`;
+
+        slot.appendChild(img);
+        slot.addEventListener('click', () => {
+          state.currentIndex = i;
+          els.globalFileInput.click();
+        });
+
+        grid.appendChild(slot);
+      }
+
+      inner.appendChild(grid);
+      page.appendChild(inner);
+      els.sheetWrap.appendChild(page);
+    }
+  }
+
+  function updateSlot(index){
+    const img = document.getElementById(`image-${index}`);
+    if(!img) return;
+    img.src = state.images[index] || '';
+    const slot = img.closest('.slot');
+    if(slot) slot.classList.toggle('empty', !state.images[index]);
+  }
+
+  function handleImageUpload(file){
+    if(state.currentIndex === null || !file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      state.images[state.currentIndex] = e.target.result;
+      updateSlot(state.currentIndex);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearAllImages(){
+    state.images = state.images.map(() => '');
+    buildPages(false);
+  }
+
+  function fillFromFirst(){
+    const first = state.images[0];
+    if(!first){
+      alert('Primero cargá la primera imagen.');
+      return;
+    }
+    state.images = state.images.map(img => img || first);
+    buildPages(false);
+  }
+
+  els.pageSize.addEventListener('change', () => {
+    setPagePreset(els.pageSize.value);
+
+    if(els.pageSize.value === 'CAMEO'){
+      if(parseFloat(els.marginTop.value) === 2.3) els.marginTop.value = 0;
+      if(parseFloat(els.marginLeft.value) === 1.2) els.marginLeft.value = 0;
+      if(parseFloat(els.marginRight.value) === 1.2) els.marginRight.value = 0;
+      if(parseFloat(els.marginBottom.value) === 1.2) els.marginBottom.value = 0;
+    }
+
+    buildPages(false);
+  });
+
+  els.autoFill.addEventListener('change', () => {
+    togglePagesInput();
+    buildPages(false);
+  });
+
+  els.applyBtn.addEventListener('click', () => buildPages(false));
+
+  els.printBtn.addEventListener('click', () => {
+    buildPages(true);
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => buildPages(false), 300);
+    }, 100);
+  });
+
+  els.clearBtn.addEventListener('click', clearAllImages);
+  els.fillFromFirstBtn.addEventListener('click', fillFromFirst);
+
+  els.globalFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    handleImageUpload(file);
+    e.target.value = '';
+  });
+
+  [
+    els.pageWidth, els.pageHeight, els.imgWidth, els.imgHeight,
+    els.imgPadding, els.marginTop, els.marginLeft, els.marginRight,
+    els.marginBottom, els.copies
+  ].forEach(el => el.addEventListener('change', () => buildPages(false)));
+
+  setPagePreset('A4');
+  togglePagesInput();
+  buildPages(false);
+</script>
+</body>
+</html>
